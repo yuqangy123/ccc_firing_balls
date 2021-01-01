@@ -68,7 +68,8 @@ export default class MenuView extends POP_UI_BASE {
     }
 
     private share() {
-        EventDispatch.ins().fire(Event_Name.SHOW_TIPS, '分享失败')
+		var playerID = FBInstant.player.getID();
+        EventDispatch.ins().fire(Event_Name.SHOW_TIPS, playerID)
     }
 
     private openCustomizeView() {
