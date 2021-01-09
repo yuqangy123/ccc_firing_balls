@@ -3,6 +3,9 @@ import * as ui from "../../common/ui/pop_mgr";
 import { EventDispatch, Event_Name } from "../../common/event/EventDispatch";
 import { AudioPlayer, AUDIO_CONFIG } from "../../common/audio/AudioPlayer";
 
+
+import byteDanceSDK = require('../../platformSDK/byteDanceSDK');
+
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -46,6 +49,10 @@ export default class MenuView extends POP_UI_BASE {
 
         this.btn_sound.node.on('toggle', this.soundChange, this);
         this.btn_music.node.on('toggle', this.musicChange, this);
+
+        byteDanceSDK.showLoginDialog(function (result:boolean, openid:string){
+            console.log("showLoginDialog:"+result+',openid:'+openid);
+        });
     }
 
     private soundChange() {
@@ -68,8 +75,9 @@ export default class MenuView extends POP_UI_BASE {
     }
 
     private share() {
-		var playerID = FBInstant.player.getID();
-        EventDispatch.ins().fire(Event_Name.SHOW_TIPS, playerID)
+        this.onStart();
+		//var playerID = FBInstant.player.getID();
+        //EventDispatch.ins().fire(Event_Name.SHOW_TIPS, playerID)
     }
 
     private openCustomizeView() {
