@@ -38,6 +38,7 @@ var httpGet = function (url, callback, timeout, bNeedAccess) {
         url = "https://www.kylinlusoft.com/index.php?url=" + url;
     }
     xhr.open("GET", url, true);
+    console.log('xhr.open:', url)
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status >= 200 && xhr.status < 400) {
@@ -46,7 +47,7 @@ var httpGet = function (url, callback, timeout, bNeedAccess) {
                     callback(xhr.status, response);
                 }
             } else {
-                cc.warn("httpGet[" + url + "] error->status:" + xhr.status + ' response:' + xhr.responseText);
+                console.warn("httpGet[" + url + "] error->status:" + xhr.status + ' response:' + xhr.responseText);
             }
         }
     };
@@ -56,7 +57,7 @@ var httpGet = function (url, callback, timeout, bNeedAccess) {
     }
     //超时回调记录
     xhr.ontimeout = function () {
-        cc.log("httpGet timeout url:" + url);
+        console.log("httpGet timeout url:" + url);
     }
 
     xhr.send();
