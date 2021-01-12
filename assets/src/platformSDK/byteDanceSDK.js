@@ -35,8 +35,30 @@ const byteDanceSDK = {
             },
           });
 
-          let url ='https://developer.toutiao.com/api/apps/jscode2session?appid=tt4c843a39d3bf7e0e'
+          /*let url ='https://developer.toutiao.com/api/apps/jscode2session?appid=tt4c843a39d3bf7e0e'
           Http.httpGet(url,function (status, response) {
+            console.log('Http.httpGet.response:', response);
+            let result = null;
+            try {
+                result = JSON.parse(response);
+                console.log('developer.toutiao.com/api/apps/jscode2session->result:', result);
+                self.user_session_key = result.session_key
+                self.openid = result.openid
+                self.anonymous_openid = result.anonymous_openid
+                if(callback)callback(true, self.openid==''?self.anonymous_openid:self.openid)
+            } catch (error) {
+                console.log("developer.toutiao.com/api/apps/jscode2session-> json parse error : " + error);
+                if(callback)callback(false)
+            }
+        });*/
+        
+    },
+
+    getUserSession(code, anonymousCode, callback, self) {
+        let url=string.format('https://developer.toutiao.com/api/apps/jscode2session?appid=%s&secret=%s&code=%s&anonymous_code=%s',self.AppID, self.AppSecret, code, anonymousCode);        
+        console.log('getUserSession->url.len:', url.length);
+        console.log('getUserSession->url:', url);
+        Http.httpGet(url,function (status, response) {
             console.log('Http.httpGet.response:', response);
             let result = null;
             try {
@@ -51,13 +73,10 @@ const byteDanceSDK = {
                 if(callback)callback(false)
             }
         });
-        
     },
 
-    getUserSession(code, anonymousCode, callback, self) {
-        let url=string.format('https://developer.toutiao.com/api/apps/jscode2session?appid=%s&secret=%s&code=%s&anonymous_code=%s',self.AppID, self.AppSecret, code, anonymousCode);        
-        console.log('getUserSession->url.len:', url.length);
-        console.log('getUserSession->url:', url);
+    testHttpRequest() {
+        let url='https://www.baidu.com/'
         Http.httpGet(url,function (status, response) {
             console.log('Http.httpGet.response:', response);
             let result = null;
