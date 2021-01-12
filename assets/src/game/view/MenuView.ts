@@ -50,10 +50,15 @@ export default class MenuView extends POP_UI_BASE {
         this.btn_sound.node.on('toggle', this.soundChange, this);
         this.btn_music.node.on('toggle', this.musicChange, this);
 
-        /*byteDanceSDK.showLoginDialog(function (result:boolean, openid:string){
+        byteDanceSDK.showLoginDialog(function (result:boolean, openid:string){
             console.log("showLoginDialog:"+result+',openid:'+openid);
-        });*/
-        let xhr = new XMLHttpRequest();
+        });
+        
+        byteDanceSDK.createBannerAd()
+
+
+
+        /*let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             console.log('xhr.readyState:'+xhr.readyState)
             console.log('xhr.status:'+xhr.status)
@@ -67,7 +72,7 @@ export default class MenuView extends POP_UI_BASE {
         };
         let url = 'https://config.xq5.com/7.json'
         xhr.open("GET", url, true);
-        xhr.send();
+        xhr.send();*/
     }
 
     private soundChange() {

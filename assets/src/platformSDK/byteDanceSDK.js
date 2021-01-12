@@ -34,49 +34,12 @@ const byteDanceSDK = {
               if(callback)callback(false);
             },
           });
-
-          /*let url ='https://developer.toutiao.com/api/apps/jscode2session?appid=tt4c843a39d3bf7e0e'
-          Http.httpGet(url,function (status, response) {
-            console.log('Http.httpGet.response:', response);
-            let result = null;
-            try {
-                result = JSON.parse(response);
-                console.log('developer.toutiao.com/api/apps/jscode2session->result:', result);
-                self.user_session_key = result.session_key
-                self.openid = result.openid
-                self.anonymous_openid = result.anonymous_openid
-                if(callback)callback(true, self.openid==''?self.anonymous_openid:self.openid)
-            } catch (error) {
-                console.log("developer.toutiao.com/api/apps/jscode2session-> json parse error : " + error);
-                if(callback)callback(false)
-            }
-        });*/
-        
     },
 
     getUserSession(code, anonymousCode, callback, self) {
         let url=string.format('https://developer.toutiao.com/api/apps/jscode2session?appid=%s&secret=%s&code=%s&anonymous_code=%s',self.AppID, self.AppSecret, code, anonymousCode);        
         console.log('getUserSession->url.len:', url.length);
         console.log('getUserSession->url:', url);
-        Http.httpGet(url,function (status, response) {
-            console.log('Http.httpGet.response:', response);
-            let result = null;
-            try {
-                result = JSON.parse(response);
-                console.log('getUserSession->result:', result);
-                self.user_session_key = result.session_key
-                self.openid = result.openid
-                self.anonymous_openid = result.anonymous_openid
-                if(callback)callback(true, self.openid==''?self.anonymous_openid:self.openid)
-            } catch (error) {
-                console.log("getUserSession-> json parse error : " + error);
-                if(callback)callback(false)
-            }
-        });
-    },
-
-    testHttpRequest() {
-        let url='https://www.baidu.com/'
         Http.httpGet(url,function (status, response) {
             console.log('Http.httpGet.response:', response);
             let result = null;
@@ -109,7 +72,7 @@ const byteDanceSDK = {
         
         // 创建一个居于屏幕底部正中的广告
         let bannerAd = tt.createBannerAd({
-            adUnitId: 'm2j65emdb9c1amndbh',
+            adUnitId: '1f899g1d40j2hkq4pa',
             style: {
                 width: targetBannerAdWidth,
                 top: windowHeight - (targetBannerAdWidth / 16 * 9), // 根据系统约定尺寸计算出广告高度
