@@ -53,6 +53,26 @@ export default class MenuView extends POP_UI_BASE {
         byteDanceSDK.showLoginDialog(function (result:boolean, openid:string){
             console.log("showLoginDialog:"+result+',openid:'+openid);
         });
+        
+        byteDanceSDK.createBannerAd()
+
+
+
+        /*let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            console.log('xhr.readyState:'+xhr.readyState)
+            console.log('xhr.status:'+xhr.status)
+            console.log('xhr.responseText:'+xhr.responseText)
+            console.log('xhr.responseURL:'+xhr.responseURL)
+            
+            if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+                var response = xhr.responseText;
+                console.log(response);
+            }
+        };
+        let url = 'https://config.xq5.com/7.json'
+        xhr.open("GET", url, true);
+        xhr.send();*/
     }
 
     private soundChange() {

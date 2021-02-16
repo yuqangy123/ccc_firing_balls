@@ -32,12 +32,14 @@ var getStrLeng = function (str) {
 // 3：解析，XMLHttpRequest对象开始读取服务器的响应
 // 4：完成，XMLHttpRequest对象读取服务器响应结束
 var httpGet = function (url, callback, timeout, bNeedAccess) {
-    var xhr = new XMLHttpRequest();
+    //var xhr = new XMLHttpRequest();
+    var xhr = cc.loader.getXMLHttpRequest();
     //Access-Control-Allow-Origin报错解决方案 
     if (bNeedAccess && !cc.sys.isNative && cc.sys.platform != cc.sys.WECHAT_GAME) {
         url = "https://www.kylinlusoft.com/index.php?url=" + url;
     }
     xhr.open("GET", url, true);
+    
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status >= 200 && xhr.status < 400) {
@@ -46,7 +48,7 @@ var httpGet = function (url, callback, timeout, bNeedAccess) {
                     callback(xhr.status, response);
                 }
             } else {
-                cc.warn("httpGet[" + url + "] error->status:" + xhr.status + ' response:' + xhr.responseText);
+                console.warn("httpGet[" + url + "] error->status:" + xhr.status + ' response:' + xhr.responseText);
             }
         }
     };
@@ -56,7 +58,7 @@ var httpGet = function (url, callback, timeout, bNeedAccess) {
     }
     //超时回调记录
     xhr.ontimeout = function () {
-        cc.log("httpGet timeout url:" + url);
+        console.log("httpGet timeout url:" + url);
     }
 
     xhr.send();
