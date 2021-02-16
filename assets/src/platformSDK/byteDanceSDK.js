@@ -57,5 +57,9 @@ const byteDanceSDK = {
         });
     },
 
+    setShareAppMessageCallback(callback){
+
+    },
+
 }
 export default byteDanceSDK;
