@@ -4,6 +4,7 @@ import { POP_UI_BASE } from "../../common/ui/pop_ui_base";
 import GameModel from "../model/GameModel";
 import { AudioPlayer, AUDIO_CONFIG } from "../../common/audio/AudioPlayer";
 import { EventDispatch, Event_Name } from "../../common/event/EventDispatch";
+import platformSDK = require('../../platformSDK/platformSDK');
 
 const { ccclass, property } = cc._decorator;
 
@@ -33,7 +34,7 @@ export default class ResultView extends POP_UI_BASE {
 
     onLoad() {
         this.btn_reset.on(cc.Node.EventType.TOUCH_END, this.backToMenu, this);
-        this.btn_revive.on(cc.Node.EventType.TOUCH_END, this.gameRevive, this);
+        this.btn_revive.on(cc.Node.EventType.TOUCH_END, this.reviveBtnClick, this);
         this.btn_revive_back.on(cc.Node.EventType.TOUCH_END, this.closeGameRevive, this);
         this.btn_share.on(cc.Node.EventType.TOUCH_END, this.share, this);
         const action = cc.repeatForever(cc.sequence(cc.scaleTo(0.5, 1.2, 1.2), cc.scaleTo(0.5, 1, 1)));
@@ -47,7 +48,20 @@ export default class ResultView extends POP_UI_BASE {
     }
 
     private share() {
-        EventDispatch.ins().fire(Event_Name.SHOW_TIPS, '分享失败')
+        platformSDK.clipGameRecorder();
+        this.backToMenu();
+    }
+
+    private reviveBtnClick() {
+        var self = this;
+        
+        platformSDK.showRewardedVideoAd(function () {
+            self.gameRevive();
+            platformSDK.startGameRecorder();
+        });
+
+        
+        //EventDispatch.ins().fire(Event_Name.SHOW_TIPS, '分享失败')
     }
 
     private closeGameRevive() {
@@ -81,6 +95,7 @@ export default class ResultView extends POP_UI_BASE {
     }
 
     on_show() {
+        console.log('ResultView.onShow');
         super.on_show();
         const score = GameModel.ins().score;
         const bestScore = GameModel.ins().bestScore;
@@ -96,9 +111,13 @@ export default class ResultView extends POP_UI_BASE {
         } else {
             this.updateCanRevive(false);
         }
+
+        platformSDK.stopGameRecorder();
     }
 
     on_hide() {
+        console.log('ResultView.onHide');
         super.on_hide();
+        platformSDK.startGameRecorder();
     }
 }

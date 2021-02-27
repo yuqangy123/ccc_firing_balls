@@ -4,7 +4,8 @@ import { EventDispatch, Event_Name } from "../../common/event/EventDispatch";
 import { AudioPlayer, AUDIO_CONFIG } from "../../common/audio/AudioPlayer";
 
 
-import byteDanceSDK = require('../../platformSDK/byteDanceSDK');
+import platformSDK = require('../../platformSDK/platformSDK');
+
 
 const { ccclass, property } = cc._decorator;
 
@@ -50,14 +51,19 @@ export default class MenuView extends POP_UI_BASE {
         this.btn_sound.node.on('toggle', this.soundChange, this);
         this.btn_music.node.on('toggle', this.musicChange, this);
 
-        byteDanceSDK.showLoginDialog(function (result:boolean, openid:string){
+        platformSDK.showLoginDialog(function (result:boolean, openid:string){
             console.log("showLoginDialog:"+result+',openid:'+openid);
         });
         
-        byteDanceSDK.createBannerAd()
+        platformSDK.setShareAppMessageCallback();
+
+        platformSDK.showBannerAd();
 
 
 
+
+
+        
         /*let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             console.log('xhr.readyState:'+xhr.readyState)
@@ -95,7 +101,8 @@ export default class MenuView extends POP_UI_BASE {
     }
 
     private share() {
-        this.onStart();
+        console.log('share button click');
+        platformSDK.shareAppMessage();
 		//var playerID = FBInstant.player.getID();
         //EventDispatch.ins().fire(Event_Name.SHOW_TIPS, playerID)
     }

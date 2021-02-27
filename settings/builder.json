@@ -40,14 +40,26 @@
   "xxteaKey": "919a7297-b87b-49",
   "zipCompressJs": true,
   "android": {
+    "REMOTE_SERVER_ROOT": "",
     "packageName": "org.cocos2d.helloworld"
   },
   "ios": {
+    "REMOTE_SERVER_ROOT": "",
     "packageName": "org.cocos2d.helloworld"
   },
   "mac": {
-    "packageName": "org.cocos2d.helloworld"
+    "REMOTE_SERVER_ROOT": "",
+    "height": 720,
+    "packageName": "org.cocos2d.helloworld",
+    "width": 1280
   },
-  "win32": {},
-  "appBundle": false
+  "win32": {
+    "REMOTE_SERVER_ROOT": "",
+    "height": 720,
+    "width": 1280
+  },
+  "appBundle": false,
+  "mainCompressionType": "default",
+  "mainIsRemote": false,
+  "nativeMd5Cache": true
 }

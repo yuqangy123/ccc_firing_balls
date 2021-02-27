@@ -11,6 +11,8 @@ import { gen_handler } from "../../common/util";
 import { loader_mgr } from "../../common/loader/loader_mgr";
 import { Tween, Ease } from "../../common/tween/Tween";
 
+import platformSDK = require('../../platformSDK/platformSDK');
+
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -421,6 +423,7 @@ export default class GameView extends POP_UI_BASE {
     }
 
     on_show() {
+        console.log('GameView.on_show');
         super.on_show();
 
         EventDispatch.ins().add(Event_Name.GAME_CREATE_BALL, this.createBall, this);
@@ -447,6 +450,10 @@ export default class GameView extends POP_UI_BASE {
         }, 5000);
 
         this.resetGame();
+
+        platformSDK.hideBannerAd();
+
+        platformSDK.startGameRecorder();
     }
 
     onCloseBtnTouch() {
@@ -454,6 +461,7 @@ export default class GameView extends POP_UI_BASE {
     }
 
     on_hide() {
+        console.log('GameView.on_hide');
         EventDispatch.ins().remove(Event_Name.GAME_CREATE_BALL, this.createBall);
         EventDispatch.ins().remove(Event_Name.GAME_RELIVE, this.gameRelive);
         EventDispatch.ins().remove(Event_Name.GAME_ON_TOUCH_MOVE, this.onTouchMove);
@@ -463,6 +471,8 @@ export default class GameView extends POP_UI_BASE {
         EventDispatch.ins().remove(Event_Name.GAME_STAR_GET_EFFECT, this.updateStarNumGetEffect);
         AudioPlayer.ins().stop_music();
         this.guide_hand.stopAllActions();
+
+        platformSDK.showBannerAd();
 
         this.clearGame();
         super.on_hide();
