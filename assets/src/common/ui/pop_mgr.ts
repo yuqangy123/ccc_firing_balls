@@ -11,6 +11,7 @@ export class pop_mgr {
     private ui_stack: Array<string>; //ui stacks
     private ui_show_handler: handler;
     private ui_hide_handler: handler;
+    private mid_layer: cc.Node;
 
     private constructor() {
         this.ui_cache = {};
@@ -20,6 +21,18 @@ export class pop_mgr {
     static get_inst(): pop_mgr {
         if (!this.inst) {
             this.inst = new pop_mgr();
+
+            // 获取视窗(frame)的实际尺寸
+            let frameSize = cc.view.getFrameSize();
+            // 设计分辨率
+            let visibleSize = cc.view.getVisibleSize();
+            let scaleX = frameSize.width / visibleSize.width;
+            let scaleY = frameSize.height / visibleSize.height;
+
+            cc.log('frameSize:',frameSize.width, frameSize.height);
+            cc.log('visibleSize:',visibleSize.width, visibleSize.height);
+            this.inst.mid_layer = cc.director.getScene().getChildByName('Canvas').getChildByName('mid_layer');
+            // this.inst.mid_layer.scale = Math.min(scaleX, scaleY);
         }
         return this.inst;
     }
@@ -68,7 +81,7 @@ export class pop_mgr {
             ui.node = node;
             //应用过渡效果
             this.applyTransitionEffect(node, transition);
-            cc.director.getScene().getChildByName('Canvas').getChildByName('mid_layer').addChild(node);
+            this.mid_layer.addChild(node);
             TimerMgr.getInst().once(0, utils.gen_handler(() => {
                 //在加到场景同一帧调用界面show方法，计算位置会不准确，故统一在下一帧调用show
                 if (!ui.is_show) {

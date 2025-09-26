@@ -5,7 +5,8 @@
     "pathPattern": "",
     "recordPath": "",
     "scheme": "https",
-    "skipRecord": false
+    "skipRecord": false,
+    "packageName": "org.cocos2d.demo"
   },
   "encryptJs": true,
   "excludeScenes": [],
@@ -17,9 +18,9 @@
   "mergeStartScene": false,
   "optimizeHotUpdate": false,
   "orientation": {
-    "landscapeLeft": true,
-    "landscapeRight": true,
-    "portrait": false,
+    "landscapeLeft": false,
+    "landscapeRight": false,
+    "portrait": true,
     "upsideDown": false
   },
   "packageName": "org.cocos2d.helloworld",
@@ -28,7 +29,7 @@
     "orientation": "portrait"
   },
   "startScene": "2d2f792f-a40c-49bb-a189-ed176a246e49",
-  "title": "firing_ball",
+  "title": "firingballs",
   "webOrientation": "portrait",
   "wechatgame": {
     "REMOTE_SERVER_ROOT": "",
@@ -36,6 +37,33 @@
     "orientation": "portrait",
     "subContext": ""
   },
-  "xxteaKey": "919a7297-b87b-49",
-  "zipCompressJs": true
+  "xxteaKey": "919a7297-b97b-48",
+  "zipCompressJs": true,
+  "mainCompressionType": "default",
+  "mainIsRemote": false,
+  "nativeMd5Cache": true,
+  "android": {
+    "packageName": "org.riserise.firingballs",
+    "REMOTE_SERVER_ROOT": ""
+  },
+  "ios": {
+    "packageName": "org.cocos2d.demo",
+    "REMOTE_SERVER_ROOT": "",
+    "ios_enable_jit": true
+  },
+  "mac": {
+    "packageName": "org.cocos2d.demo",
+    "REMOTE_SERVER_ROOT": "",
+    "width": 1600,
+    "height": 720
+  },
+  "win32": {
+    "REMOTE_SERVER_ROOT": "",
+    "width": 1600,
+    "height": 720
+  },
+  "appBundle": false,
+  "agreements": {
+    "20200904180755": false
+  }
 }

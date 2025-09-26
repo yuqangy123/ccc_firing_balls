@@ -5,7 +5,11 @@
 library/
 temp/
 local/
+node_modules/
+jsb-link/assets/
+jsb-link/js backups (useful for debugging)/
 build/
+# ./settings/
 
 #/////////////////////////////////////////////////////////////////////////////
 # Logs and databases
@@ -65,3 +69,17 @@ quick_gen_project_*_autogen.sh.meta
 #//////////////////////////
 
 .vscode/
+assets/testCase/
+/assets/testCase
+/assets/testCase
+/assets/testCase.meta
+
+# /settings/project.json
+packVersion
+/packVersion
+native/
+pack_config.ini
+hotupdate
+bundle-update
+/tools/pack_config.ini
+/web-mobile

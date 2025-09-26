@@ -9,8 +9,8 @@
       false
     ]
   ],
-  "design-resolution-height": 1136,
-  "design-resolution-width": 640,
+  "design-resolution-height": 1600,
+  "design-resolution-width": 720,
   "excluded-modules": [
     "LabelOutline",
     "TiledMap",
@@ -29,7 +29,8 @@
     "3D Primitive",
     "3D Physics/cannon.js",
     "3D Physics/Builtin",
-    "3D Particle"
+    "3D Particle",
+    "SafeArea"
   ],
   "facebook": {
     "appID": "",
@@ -47,14 +48,19 @@
     "default",
     "ball"
   ],
-  "last-module-event-record-time": 1574770377308,
+  "last-module-event-record-time": 1758704767048,
   "simulator-orientation": false,
   "simulator-resolution": {
-    "height": 1136,
-    "width": 640
+    "width": 720,
+    "height": 1600
   },
-  "start-scene": "current",
+  "start-scene": "2d2f792f-a40c-49bb-a189-ed176a246e49",
   "use-customize-simulator": true,
   "use-project-simulator-setting": true,
-  "assets-sort-type": "name"
+  "assets-sort-type": "name",
+  "migrate-history": [
+    "cloud-function"
+  ],
+  "preview-port": 8456,
+  "clear-simulator-cache": true
 }

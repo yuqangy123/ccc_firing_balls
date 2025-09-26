@@ -20,6 +20,8 @@ export default class GameView extends POP_UI_BASE {
     @property(cc.Node)
     node_top: cc.Node = null;
     @property(cc.Node)
+    topMenu: cc.Node = null;    
+    @property(cc.Node)
     cannon_head: cc.Node = null;
     @property(cc.Node)
     node_physics: cc.Node = null;
@@ -62,7 +64,7 @@ export default class GameView extends POP_UI_BASE {
     private bricks_in_game: BrickItem[] = [];
 
     private _updateDt: number = 0;
-    private _brick_speed: number = 1;
+    private _brick_speed: number = 1;//砖块移动速度
     private _moved_length = 0;
     private _moved_level = 0;
     private _power_type = 0;
@@ -80,6 +82,23 @@ export default class GameView extends POP_UI_BASE {
             this.bricks_pool[i++] = [];
         }
         cc.director.getPhysicsManager().enabledAccumulator = true;
+
+        //屏幕适配
+        this.adapterScreen();
+    }
+
+    private adapterScreen(){
+        this.node_physics.scale = this.node.width/this.node_physics.width;
+        
+        // 遍历node_physics节点下的所有子节点及其组件
+        let self = this;
+        this.node_physics.getComponents(cc.PhysicsBoxCollider).forEach((PhysicsBoxCollider_com) => {
+            if(2 == PhysicsBoxCollider_com.tag){//顶部的碰撞器
+                let visibleSize = cc.view.getVisibleSize();
+                self.topMenu.y = visibleSize.height/2 - self.topMenu.height;
+                PhysicsBoxCollider_com.offset.y = self.topMenu.y;
+            }
+        })
     }
 
     private onTouchMove(param: cc.Event.EventTouch) {
@@ -91,6 +110,17 @@ export default class GameView extends POP_UI_BASE {
         let angle = -this.cannon_head.angle + deltaR * sign;
         angle = Math.abs(angle) >= 85 ? Math.sign(angle) * 85 : angle;
         this.cannon_head.angle = -angle;
+
+        if(this.guide_hand.opacity == 150){
+            this.guide_hand.opacity = 149;
+            cc.tween(this.guide_hand)
+            .to(0.5, {opacity: 0})
+            .call(()=>{
+                this.guide_hand.active = false;
+            })
+            .start();
+        }
+        
     }
 
     update(dt) {
@@ -169,7 +199,7 @@ export default class GameView extends POP_UI_BASE {
             }
         }
 
-        //update bricks
+        //更新砖块
         let brick_min_y = 9999;
         for (let index = 0, len = this.bricks_in_game.length; index < len; index++) {
             const element = this.bricks_in_game[index];
@@ -190,12 +220,12 @@ export default class GameView extends POP_UI_BASE {
                         this.gameOver();
                         return;
                     }
-                    if (brick.y < brick_min_y) {
-                        brick_min_y = brick.y;
-                    }
+                    brick_min_y = Math.min(brick.y, brick_min_y);
                 }
             }
         }
+        
+        //砖块速度更新
         this._brick_speed = (brick_min_y > GameConst.ins().ball_init_y + brick_radius * 7) ? 1 : ((brick_min_y > GameConst.ins().ball_init_y + brick_radius * 5) ? 0.9 : 0.6);
     }
 
@@ -435,6 +465,7 @@ export default class GameView extends POP_UI_BASE {
 
         const duration = 0.5;
         this.guide_hand.active = true;
+        this.guide_hand.opacity == 150;
         this.guide_hand.stopAllActions();
         this.guide_hand.runAction(cc.sequence(cc.repeat(cc.sequence(cc.moveBy(duration, 100, 0), cc.moveBy(duration, -100, 0), cc.moveBy(duration, -100, 0), cc.moveBy(duration, 100, 0)), 5), cc.callFunc(() => {
             if (this.guide_hand)

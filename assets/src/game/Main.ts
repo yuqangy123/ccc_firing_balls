@@ -22,6 +22,7 @@ export default class Main extends cc.Component {
     top_layer: cc.Node = null;
 
     onLoad() {
+        cc.log("main.ts");
         RandomUtil.ins().init(Math.round(1000000 + Math.random() * 8999999).toString());
         EventDispatch.ins().add(Event_Name.SHOW_TIPS, this.showTips, this);
         this.lb_tips.node.on(cc.Node.EventType.SIZE_CHANGED, () => {
@@ -31,11 +32,11 @@ export default class Main extends cc.Component {
         this.node_loading.runAction(cc.repeatForever(cc.sequence(
             cc.callFunc(() => {
                 this.node_loading.scaleX = 1;
-            }), cc.moveBy(3, -1200, 0),
+            }), cc.moveBy(3.5, -2000, 0),
             cc.callFunc(() => {
                 this.node_loading.scaleX = -1;
             })
-            , cc.moveBy(3, 1200, 0)
+            , cc.moveBy(3.5, 2000, 0)
         )))
 
         AudioPlayer.ins().init();
