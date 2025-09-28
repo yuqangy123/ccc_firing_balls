@@ -83,3 +83,10 @@ hotupdate
 bundle-update
 /tools/pack_config.ini
 /web-mobile
+
+#//////////////////////////
+# android studio
+#//////////////////////////
+*.hprof
+*.o
+*.apk
