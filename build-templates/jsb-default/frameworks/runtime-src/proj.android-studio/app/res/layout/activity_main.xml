@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Cocos游戏渲染视图（保持不变） -->
+    <FrameLayout
+        android:id="@+id/game_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+	
+    <!-- AdMob横幅广告 -->
+    <!-- Ad view container that fills the width of the screen and adjusts its
+    height to the content of the ad. -->
+	<FrameLayout
+		android:id="@+id/ad_view_container"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_centerInParent="true"
+		android:layout_alignParentBottom="true" />
+
+</FrameLayout>

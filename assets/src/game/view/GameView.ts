@@ -64,7 +64,7 @@ export default class GameView extends POP_UI_BASE {
     private bricks_in_game: BrickItem[] = [];
 
     private _updateDt: number = 0;
-    private _brick_speed: number = 1;//砖块移动速度
+    private _brick_speed: number = GameConst.ins().brick_speed;//砖块移动速度
     private _moved_length = 0;
     private _moved_level = 0;
     private _power_type = 0;
@@ -226,7 +226,7 @@ export default class GameView extends POP_UI_BASE {
         }
         
         //砖块速度更新
-        this._brick_speed = (brick_min_y > GameConst.ins().ball_init_y + brick_radius * 7) ? 1 : ((brick_min_y > GameConst.ins().ball_init_y + brick_radius * 5) ? 0.9 : 0.6);
+        this._brick_speed = (brick_min_y > GameConst.ins().ball_init_y + brick_radius * 7) ? GameConst.ins().brick_speed : GameConst.ins().brick_speed*((brick_min_y > GameConst.ins().ball_init_y + brick_radius * 5) ? 0.8 : 0.4);
     }
 
     // 创建小球

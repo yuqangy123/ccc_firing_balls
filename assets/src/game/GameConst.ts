@@ -13,12 +13,14 @@ export default class GameConst extends SingletonClass {
     readonly brick_radius = 43;
     readonly brick_init_x = 0;
     readonly brick_init_y = 700;
+    readonly brick_speed = 0.8;
 
     readonly max_ball_init_count = 60;
     readonly max_ball_fire_speed = 10;
 
     readonly theme_price = 500;
     readonly sign_interval_sec = 3600;
+
 
     readonly theme_config: { color: cc.Color[], theme: string }[] = [
         {

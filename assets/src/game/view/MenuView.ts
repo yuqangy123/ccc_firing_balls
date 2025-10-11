@@ -2,6 +2,7 @@ import { POP_UI_BASE } from "../../common/ui/pop_ui_base";
 import * as ui from "../../common/ui/pop_mgr";
 import { EventDispatch, Event_Name } from "../../common/event/EventDispatch";
 import { AudioPlayer, AUDIO_CONFIG } from "../../common/audio/AudioPlayer";
+import { SdkHelper } from "../../common/sdk/SdkHelper";
 
 const { ccclass, property } = cc._decorator;
 
@@ -68,7 +69,8 @@ export default class MenuView extends POP_UI_BASE {
     }
 
     private share() {
-        EventDispatch.ins().fire(Event_Name.SHOW_TIPS, '分享失败')
+        // EventDispatch.ins().fire(Event_Name.SHOW_TIPS, '分享失败')
+        SdkHelper.ins().shareTextOnly('分享失败');
     }
 
     private openCustomizeView() {

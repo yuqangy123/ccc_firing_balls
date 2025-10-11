@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.fbircbvuiztgrlb.xdncnwxzekfwkag"
+        package="org.riserise.firingballs"
     android:installLocation="auto">
 
     <uses-feature android:glEsVersion="0x00020000" />
@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
 
     <application
         android:allowBackup="true"
@@ -21,6 +21,11 @@
         <!-- Tell Cocos2dxActivity the name of our .so -->
         <meta-data android:name="android.app.lib_name"
             android:value="cocos2djs" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-6735461610773254~9039692393"/>
+
 
         <activity
             android:name="org.cocos2dx.javascript.AppActivity"

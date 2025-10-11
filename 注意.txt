@@ -1,0 +1,8 @@
+gradle(APG)版本问题：
+android studio 配置的android gradle Plugin(APG)如果版本在7.0以上，则需要在所有的build.gradle里的android.defaultconfig里配置namespace字段，字段内容为包名
+
+
+android studio版本配置问题：
+Android Studio Ladybug | 2024.2.1 Patch 2
+android gradle Plugin Version(APG)： 8.2.2
+Gradle Version: 8.7
