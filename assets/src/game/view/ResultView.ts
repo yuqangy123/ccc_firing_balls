@@ -4,6 +4,7 @@ import { POP_UI_BASE } from "../../common/ui/pop_ui_base";
 import GameModel from "../model/GameModel";
 import { AudioPlayer, AUDIO_CONFIG } from "../../common/audio/AudioPlayer";
 import { EventDispatch, Event_Name } from "../../common/event/EventDispatch";
+import { SdkHelper } from "../../common/sdk/SdkHelper";
 
 const { ccclass, property } = cc._decorator;
 
@@ -36,7 +37,12 @@ export default class ResultView extends POP_UI_BASE {
         this.btn_revive.on(cc.Node.EventType.TOUCH_END, this.gameRevive, this);
         this.btn_revive_back.on(cc.Node.EventType.TOUCH_END, this.closeGameRevive, this);
         this.btn_share.on(cc.Node.EventType.TOUCH_END, this.share, this);
-        const action = cc.repeatForever(cc.sequence(cc.scaleTo(0.5, 1.2, 1.2), cc.scaleTo(0.5, 1, 1)));
+
+        const scaleTime = 0.75;
+        const action = cc.repeatForever(cc.sequence(
+            cc.scaleTo(scaleTime, 1.1, 1.1).easing(cc.easeInOut(2.0)), 
+            cc.scaleTo(scaleTime, 1, 1).easing(cc.easeInOut(2.0))
+        ));
         this.btn_revive.runAction(action);
         this.btn_share.runAction(action.clone());
     }
@@ -47,7 +53,8 @@ export default class ResultView extends POP_UI_BASE {
     }
 
     private share() {
-        EventDispatch.ins().fire(Event_Name.SHOW_TIPS, '分享失败')
+        // EventDispatch.ins().fire(Event_Name.SHOW_TIPS, '分享失败')
+        SdkHelper.ins().shareTextOnly('');
     }
 
     private closeGameRevive() {
@@ -55,8 +62,10 @@ export default class ResultView extends POP_UI_BASE {
     }
 
     private gameRevive() {
-        EventDispatch.ins().fire(Event_Name.GAME_RELIVE);
-        this.onCloseBtnTouch();
+        SdkHelper.ins().showRewardedAd(() => {
+            EventDispatch.ins().fire(Event_Name.GAME_RELIVE);
+            this.onCloseBtnTouch();
+        });
     }
 
     private _autoReviveCount = 10;

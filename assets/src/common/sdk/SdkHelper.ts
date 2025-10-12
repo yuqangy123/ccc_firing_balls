@@ -7,14 +7,13 @@ const MUSIC_PATH = "sound/{0}";
 const SOUND_PATH = "sound/{0}";
 
 export class SdkHelper extends SingletonClass {
-    
+    public _rewardedInterstitialAdCallback : any;
 
     static ins() {
         return super.ins() as SdkHelper;
     }
 
     init() {
-        
     }
 
 
@@ -71,18 +70,63 @@ export class SdkHelper extends SingletonClass {
             }
         });
     }
+    /**
+     * 播放插頁式激勵視頻廣告
+     * @param cb 播放完畢回調
+     */
+    showRewardedInterstitialAd(cb){
+        if (cc.sys.isNative && cc.sys.os === cc.sys.OS_ANDROID) {
+            jsb.reflection.callStaticMethod(
+                "org/cocos2dx/javascript/AdmobController",
+                "showRewardedInterstitialAd",
+                "(Ljava/lang/String;)Z",
+                'rewardedInterstitialAdCallback'
+            );
+            this._rewardedInterstitialAdCallback = cb;
+        } else {
+            cc.log("[SdkHelper] showRewardedInterstitialAd 仅支持 Android 原生");
+        }
+    }
 
     /**
-     * 监听从 Dynamic Link 传回的 ref 参数
-     * @param callback 回调函数 (ref: string)
+     * 播放激勵視頻廣告
+     * @param cb 播放完畢回調
      */
-    static onDynamicLinkReceived(callback: (ref: string) => void) {
-        cc.game.on("onDynamicLinkReceived", (ref: string) => {
-            cc.log("[SdkHelper] 动态链接参数：", ref);
-            callback(ref);
-        });
+    showRewardedAd(cb){
+        if (cc.sys.isNative && cc.sys.os === cc.sys.OS_ANDROID) {
+            jsb.reflection.callStaticMethod(
+                "org/cocos2dx/javascript/AdmobController",
+                "showRewardedAd",
+                "(Ljava/lang/String;)Z",
+                'rewardedInterstitialAdCallback'
+            );
+            this._rewardedInterstitialAdCallback = cb;
+        } else {
+            cc.log("[SdkHelper] showRewardedInterstitialAd 仅支持 Android 原生");
+        }
     }
+
+    
+
+    // /**
+    //  * 监听从 Dynamic Link 传回的 ref 参数
+    //  * @param callback 回调函数 (ref: string)
+    //  */
+    // static onDynamicLinkReceived(callback: (ref: string) => void) {
+    //     cc.game.on("onDynamicLinkReceived", (ref: string) => {
+    //         cc.log("[SdkHelper] 动态链接参数：", ref);
+    //         callback(ref);
+    //     });
+    // }
+
+    
 }
+
+(window as any).rewardedInterstitialAdCallback = () => {
+    cc.log('ts: rewardedInterstitialAdCallback');
+    SdkHelper.ins()._rewardedInterstitialAdCallback();
+};
+
 
 // enum AudioType {
 //     Music = 1,

@@ -70,7 +70,7 @@ export default class MenuView extends POP_UI_BASE {
 
     private share() {
         // EventDispatch.ins().fire(Event_Name.SHOW_TIPS, '分享失败')
-        SdkHelper.ins().shareTextOnly('分享失败');
+        SdkHelper.ins().shareTextOnly('');
     }
 
     private openCustomizeView() {

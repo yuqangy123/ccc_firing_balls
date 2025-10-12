@@ -452,7 +452,6 @@ export default class GameView extends POP_UI_BASE {
 
     on_show() {
         super.on_show();
-
         EventDispatch.ins().add(Event_Name.GAME_CREATE_BALL, this.createBall, this);
         EventDispatch.ins().add(Event_Name.GAME_RELIVE, this.gameRelive, this);
         EventDispatch.ins().add(Event_Name.GAME_ON_TOUCH_MOVE, this.onTouchMove, this);
