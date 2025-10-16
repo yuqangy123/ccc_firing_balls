@@ -61,6 +61,8 @@ public class AdmobController {
     private FrameLayout adContainerView;
     private boolean isMobileAdsInitializeCalled = false;
 
+    //激励广告的回调函数，在关闭广告后调用
+    private String earnedRewardCallback;
 
     public static AdmobController getInstance() {
         if (instance == null) {
@@ -186,6 +188,7 @@ public class AdmobController {
             return false;
         }
 
+        instance.earnedRewardCallback = earnedRewardCallback;
         // [START show_ad]
         appActivity.runOnUiThread(new Runnable() {
             @Override
@@ -197,11 +200,8 @@ public class AdmobController {
                             @Override
                             public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
                                 Log.d(LOG_TAG, "RewardedAd: User earned the reward.");
-                                instance.rewardADEarnedCallback(earnedRewardCallback);
                             }
                         });
-                instance.rewardedAd = null;
-                new Handler(Looper.getMainLooper()).postDelayed(() -> instance.loadRewardedAd(), 2000);
                 // [END show_ad]
             }
         });
@@ -221,6 +221,7 @@ public class AdmobController {
             return false;
         }
 
+        instance.rewardADEarnedCallback(earnedRewardCallback);
         // [START show_ad]
         appActivity.runOnUiThread(new Runnable() {
             @Override
@@ -231,11 +232,8 @@ public class AdmobController {
                             @Override
                             public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
                                 Log.d(LOG_TAG, "RewardedInterstitialAd: The user earned the reward.");
-                                instance.rewardADEarnedCallback(earnedRewardCallback);
                             }
                         });
-                instance.rewardedInterstitialAd = null;
-                new Handler(Looper.getMainLooper()).postDelayed(() -> instance.loadRewardedInterstitialAd(), 2000);
             }
         });
         // [END show_ad]
@@ -352,7 +350,7 @@ public class AdmobController {
                                 // don't show the ad a second time.
                                 rewardedAd = null;
                                 new Handler(Looper.getMainLooper()).postDelayed(() -> instance.loadRewardedAd(), 2000);
-
+                                instance.rewardADEarnedCallback(instance.earnedRewardCallback);
                             }
 
                             @Override
@@ -425,6 +423,7 @@ public class AdmobController {
                                         // show it a second time.
                                         rewardedInterstitialAd = null;
                                         new Handler(Looper.getMainLooper()).postDelayed(() -> instance.loadRewardedInterstitialAd(), 2000);
+                                        instance.rewardADEarnedCallback(instance.earnedRewardCallback);
                                     }
 
                                     @Override

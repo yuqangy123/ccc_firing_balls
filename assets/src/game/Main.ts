@@ -44,7 +44,7 @@ export default class Main extends cc.Component {
         ui.pop_mgr.get_inst().show(ui.UI_CONFIG.menu);
 
         // 显示draw call等性能指标信息
-        cc.profiler.showStats();
+        // cc.profiler.showStats();
     }
 
     private showTips(str: string) {

@@ -6,3 +6,8 @@ android studio版本配置问题：
 Android Studio Ladybug | 2024.2.1 Patch 2
 android gradle Plugin Version(APG)： 8.2.2
 Gradle Version: 8.7
+
+
+gp上架。16kb内存页支持：
+https://developer.android.com/guide/practices/page-sizes?hl=zh-cn#update-packaging
+https://developer.android.com/guide/practices/page-sizes?hl=zh-cn#ndk-build_1

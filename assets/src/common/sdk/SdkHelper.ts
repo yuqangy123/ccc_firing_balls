@@ -23,7 +23,8 @@ export class SdkHelper extends SingletonClass {
      */
     shareTextOnly(shareStr: string) {
         if (cc.sys.isNative && cc.sys.os === cc.sys.OS_ANDROID) {
-            shareStr = "快來玩我發現的這款遊戲！\nhttps://play.google.com/store/apps/details?id=com.example.game"
+            if (shareStr=="")
+                shareStr = "WOW~ 這款遊戲有點意思，快來玩我發現的這款遊戲！\nhttps://play.google.com/store/apps/details?id=com.example.game";
 
             jsb.reflection.callStaticMethod(
                 "org/cocos2dx/javascript/AppActivity",
@@ -46,7 +47,7 @@ export class SdkHelper extends SingletonClass {
             return;
         }
 
-        shareStr = "快來玩我發現的這款遊戲！\nhttps://play.google.com/store/apps/details?id=com.example.game"
+        shareStr = "WOW~ 這款遊戲有點意思，快來玩我發現的這款遊戲！\nhttps://play.google.com/store/apps/details?id=com.example.game";
 
         const winSize = cc.director.getWinSize();
         const renderTexture = new cc.RenderTexture();
@@ -141,15 +142,3 @@ export class SdkHelper extends SingletonClass {
 //     loop: boolean;
 //     cb?: utils.handler;
 // }
-
-export const AUDIO_CONFIG = {
-    Audio_Btn: "button",
-    Audio_levelup: "levelup",
-    Audio_star: "star",
-    Audio_balls: "balls",
-    Audio_Bgm: "bg",
-    Audio_gameover: "gameover",
-    Audio_win: "win",
-    Audio_congra: "congra",
-
-}

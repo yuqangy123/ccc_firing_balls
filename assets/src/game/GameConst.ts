@@ -12,8 +12,8 @@ export default class GameConst extends SingletonClass {
 
     readonly brick_radius = 43;
     readonly brick_init_x = 0;
-    readonly brick_init_y = 700;
-    readonly brick_speed = 0.8;
+    readonly brick_init_y = 750;
+    readonly brick_speed = 0.9;
 
     readonly max_ball_init_count = 60;
     readonly max_ball_fire_speed = 10;

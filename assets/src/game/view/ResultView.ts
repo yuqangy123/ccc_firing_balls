@@ -29,8 +29,11 @@ export default class ResultView extends POP_UI_BASE {
     btn_share: cc.Node = null;
     @property(cc.Label)
     lb_score: cc.Label = null;
+    @property(cc.Label)
+    newRecordLabel: cc.Label = null;
 
-    private _sound: string[] = [AUDIO_CONFIG.Audio_gameover, AUDIO_CONFIG.Audio_win, AUDIO_CONFIG.Audio_congra]
+    private _sound: string[] = [AUDIO_CONFIG.Audio_gameover, AUDIO_CONFIG.Audio_win, AUDIO_CONFIG.Audio_congra];
+    private new_best_score = false;
 
     onLoad() {
         this.btn_reset.on(cc.Node.EventType.TOUCH_END, this.backToMenu, this);
@@ -54,7 +57,11 @@ export default class ResultView extends POP_UI_BASE {
 
     private share() {
         // EventDispatch.ins().fire(Event_Name.SHOW_TIPS, '分享失败')
-        SdkHelper.ins().shareTextOnly('');
+        let shareStr = "";
+        if(this.new_best_score)
+            shareStr = "WOW~ 我創造了新的記錄，快來玩我發現的這款遊戲！\nhttps://play.google.com/store/apps/details?id=com.example.game";
+
+        SdkHelper.ins().shareTextOnly(shareStr);
     }
 
     private closeGameRevive() {
@@ -92,19 +99,24 @@ export default class ResultView extends POP_UI_BASE {
     on_show() {
         super.on_show();
         const score = GameModel.ins().score;
-        const bestScore = GameModel.ins().bestScore;
-        if (score > bestScore) {
-            GameModel.ins().bestScore = score;
+        const bestScore = GameModel.ins().best_score;
+        const can_revive = GameModel.ins().revive_times < 1;
+        this.new_best_score = score > bestScore;
+
+        if (this.new_best_score) {
+            GameModel.ins().best_score = score;
+            AudioPlayer.ins().play_sound(AUDIO_CONFIG.Audio_congra);
+            
         }
+        else{
+            AudioPlayer.ins().play_sound(Math.random() >= 0.6 ? AUDIO_CONFIG.Audio_win:AUDIO_CONFIG.Audio_gameover);
+        }
+
+        this.newRecordLabel.node.active = this.new_best_score;
 
         this.lb_score.string = `${score}`;
-        AudioPlayer.ins().play_sound(this._sound[Math.floor(Math.random() * this._sound.length)] || this._sound[0]);
-
-        if (GameModel.ins().revive_times < 1) {
-            this.updateCanRevive(true);
-        } else {
-            this.updateCanRevive(false);
-        }
+        
+        this.updateCanRevive(can_revive);
     }
 
     on_hide() {

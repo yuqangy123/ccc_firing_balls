@@ -96,7 +96,7 @@ export default class GameView extends POP_UI_BASE {
             if(2 == PhysicsBoxCollider_com.tag){//顶部的碰撞器
                 let visibleSize = cc.view.getVisibleSize();
                 self.topMenu.y = visibleSize.height/2 - self.topMenu.height;
-                PhysicsBoxCollider_com.offset.y = self.topMenu.y;
+                PhysicsBoxCollider_com.offset.y = self.topMenu.y+40;
             }
         })
     }

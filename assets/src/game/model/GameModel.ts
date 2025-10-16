@@ -57,6 +57,22 @@ export default class GameModel extends SingletonClass {
         return this._score;
     }
 
+    //最好成績
+    private _best_score = -1;
+    public set best_score(value) {
+        let best_score = Math.max(this._best_score, value);
+        if(best_score != this._best_score){
+            cc.sys.localStorage.setItem('best_score', best_score.toString());
+            this._best_score = best_score;
+        }
+    }
+    public get best_score() {
+        if(this._best_score == -1){
+            this._best_score = parseInt(cc.sys.localStorage.getItem('best_score')) || 0;
+        }
+        return this._best_score;
+    }
+
     private _revive_times = 0;
     public set revive_times(value) {
         value = value < 0 ? 0 : value;
